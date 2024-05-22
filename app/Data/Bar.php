@@ -5,7 +5,7 @@ namespace App\Data;
 class Bar
 {
     public function __construct(
-        private Foo $foo
+        public Foo $foo
     ) {
     }
 
