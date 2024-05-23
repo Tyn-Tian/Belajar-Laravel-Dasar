@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class InputController extends Controller
 {
@@ -29,5 +30,18 @@ class InputController extends Controller
     {
         $names = $request->input("products.*.name");
         return json_encode($names);
+    }
+
+    public function inputType(Request $request): string
+    {
+        $name = $request->input("name");
+        $married = $request->boolean("married");
+        $birthDate = $request->date("birth_date", "Y-m-d");
+
+        return json_encode([
+            "name" => $name,
+            "married" => $married,
+            "birth_date" => $birthDate->format('Y-m-d')
+        ]);
     }
 }
