@@ -26,3 +26,13 @@ Route::redirect('/youtube', '/tyn');
 Route::fallback(function () {
     return "404";
 });
+
+Route::view('/hello', 'hello', ['name' => 'Christian']);
+
+Route::get('/hello-again', function () {
+    return view('hello', ['name' => 'Christian']);
+});
+
+Route::get('/hello-world', function () {
+    return view('hello.world', ['name' => 'Christian']);
+});
