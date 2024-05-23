@@ -77,4 +77,10 @@ class RoutingTest extends TestCase
         $this->get('/produk-redirect/12345')
             ->assertRedirect('/products/12345');
     }
+
+    public function testController()
+    {
+        $this->get('/controller/hello/tian')
+            ->assertSeeText("Hallo tian");
+    }
 }
