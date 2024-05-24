@@ -9,6 +9,7 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,6 +132,11 @@ Route::prefix('/redirect')->controller(RedirectController::class)->group(functio
     Route::get('/action', 'redirectAction');
     Route::get('/away', 'redirectAway');
 });
+Route::get('/redirect/named', function () {
+    // return route('redirect-hello', ['name' => "Christian"]);
+    // return url()->route('redirect-hello', ['name' => "Christian"]);
+    return URL::route('redirect-hello', ['name' => "Christian"]);
+});
 
 Route::prefix('/middleware')->middleware(['tyn'])->group(function () {
     Route::get('/api', function () {
@@ -145,4 +151,15 @@ Route::prefix('/middleware')->middleware(['tyn'])->group(function () {
 Route::prefix('/form')->controller(FormController::class)->group(function () {
     Route::get('', 'form');
     Route::post('', 'submitForm');
+});
+
+Route::prefix('/url')->group(function () {
+    Route::get('/action', function () {
+        // return action([FormController::class, 'form'], []);
+        // return url()->action([FormController::class, 'form'], []);
+        return URL::action([FormController::class, 'form'], []);
+    });
+    Route::get('/current', function () {
+        return URL::full();
+    });
 });
