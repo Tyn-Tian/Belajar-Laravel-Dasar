@@ -174,12 +174,20 @@ Route::prefix('/session')->controller(SessionController::class)->group(function 
 Route::get('/error/sample', function () {
     throw new Exception("Sample Error");
 });
-
 Route::get('/error/manual', function () {
     report(throw new Exception("Sample Error"));
     return "OK";
 });
-
 Route::get('/error/validation', function () {
     throw new ValidationException("Sample Error");
+});
+
+Route::get('/abort/400', function () {
+    abort(400, "Ups Validation Exception");
+});
+Route::get('/abort/401', function () {
+    abort(401);
+});
+Route::get('/abort/500', function () {
+    abort(500);
 });
